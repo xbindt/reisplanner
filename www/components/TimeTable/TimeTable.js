@@ -18,7 +18,7 @@ import styled from 'styled-components';
         border-collapse: collapse;
         th {
             text-align: left;
-            padding: 10px 0 10px 10px;
+            padding: 10px 10px 10px 0;
             font-family: ${props => props.theme.fontsecondary};
             position: sticky;
             top: 0;
@@ -27,7 +27,7 @@ import styled from 'styled-components';
         }
         td {
             vertical-align: top;
-            padding: 10px 0 10px 10px;
+            padding: 10px 10px 10px 0;
 
             .warning {
                 color: red;

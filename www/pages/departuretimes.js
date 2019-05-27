@@ -1,7 +1,7 @@
 import url from 'url'
 import React from 'react'
 import fetch from 'isomorphic-unfetch'
-import TimeTable from '../components/TimeTable/TimeTable.js';
+import TimeTable from '../components/timeTable/TimeTable.js';
 import Layout from '../components/Layout.js'
 
 const absoluteUrl = (req, setLocalhost) => {

@@ -1,13 +1,18 @@
-import { ThemeProvider } from 'styled-components'
-import { theme1, GlobalStyles } from '../theme/globalStyle'
+import { ThemeProvider } from 'styled-components';
+import { theme1, GlobalStyles } from '../theme/globalStyle';
+import Header from './header/Header';
+
 
 const Layout = (props) => (
-    <div>
+    <main>
         <ThemeProvider theme={theme1} >
-        {props.children}
+        <>
+            <Header />
+            {props.children}
+        </>
         </ThemeProvider>
         <GlobalStyles />
-    </div>
+    </main>
 )
 
 export default Layout
