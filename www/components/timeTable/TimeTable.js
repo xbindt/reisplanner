@@ -28,18 +28,17 @@ import styled from 'styled-components';
         td {
             vertical-align: top;
             padding: 10px 10px 10px 0;
-
-            .warning {
-                color: red;
-                padding-left: 10px;
-            }
-            .spoorwijziging-true {
-                color: red;
-                padding: 0;
-                margin: 0;
-                display: block;
-                transform: rotate(15deg);
-            }
+        }
+        .warning {
+            color: red;
+            padding-left: 10px;
+        }
+        .spoorwijziging-true {
+            color: red;
+            padding: 0;
+            margin: 0;
+            display: block;
+            transform: rotate(15deg);
         }
         .departuretime {
             text-align: center;
@@ -74,6 +73,7 @@ import styled from 'styled-components';
                                                 <br/>
                                                 <sup
                                                     key = {index}
+                                                    className={message.style.toLowerCase()}
                                                 >
                                                     {message.message}
                                                 </sup>

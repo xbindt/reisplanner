@@ -33,11 +33,10 @@ export const GlobalStyles = createGlobalStyle`
     body {
         font-size: 1em;
         background-color: ${myTheme.basebackgroundcolor};
-        margin: 0;
     }
 
     main {
         max-width: 1024px;
-        margin: 3em auto
+        margin: 1em auto
     }
 `;

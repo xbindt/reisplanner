@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const MainNav = styled.nav`
     ul {
       list-style: none;
-      margin: 1em 0;
+      margin: 1em 0 1.5em 0;
       padding: 0;
       display: flex;
       flex-direction: row;

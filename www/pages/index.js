@@ -4,6 +4,7 @@ import Link from 'next/link'
 import 'isomorphic-unfetch'
 import Layout from '../components/Layout.js'
 import styled from 'styled-components';
+import Head from 'next/head'
 
 const absoluteUrl = (req, setLocalhost) => {
     let protocol = 'https'
@@ -47,7 +48,7 @@ const InputSearch = styled.input`
     padding: 15px;
     background: transparent;
     outline: none;
-    color: #726659;
+    color: ${props => props.theme.basecolor};
     border: solid 1px ${props => props.theme.basecolor};
 `
 
@@ -75,30 +76,33 @@ const Home = (props) => {
     }
 
     return (
-    <Layout>
-        <div>
-            <label htmlFor="station">Station</label>
-            <div>
-                <InputSearch id="station" type="text" autoComplete="off" placeholder="Typ uw station hier..." onKeyUp={(e) => autoComplete(e)} />
-                <AutoComplete>
-                {
-                    stationsFiltered.map((station) => {
-                        return (
-                            <li key={station.code} >
-                                <Link
-                                    href={{pathname: '/departuretimes', query: { station: station.code }}}
-                                    as={`/departuretimes/${station.code}`}>
-                                    <a>{station.namen.lang}</a>
-                                </Link>
-                            </li>
-                        );
-                        }
-                    )
-                }
-                </AutoComplete>
-            </div>
-        </div>
-    </Layout>
+        <>
+            <Head>
+                <title>Home</title>
+            </Head>
+            <Layout>
+                <label htmlFor="station">Station</label>
+                <div>
+                    <InputSearch id="station" type="text" autoComplete="off" placeholder="Typ uw station hier..." onKeyUp={(e) => autoComplete(e)} />
+                    <AutoComplete>
+                    {
+                        stationsFiltered.map((station) => {
+                            return (
+                                <li key={station.code} >
+                                    <Link
+                                        href={{pathname: '/departuretimes', query: { station: station.code }}}
+                                        as={`/departuretimes/${station.code}`}>
+                                        <a>{station.namen.lang}</a>
+                                    </Link>
+                                </li>
+                            );
+                            }
+                        )
+                    }
+                    </AutoComplete>
+                </div>
+            </Layout>
+        </>
     )
 };
 

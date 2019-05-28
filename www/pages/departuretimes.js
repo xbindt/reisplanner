@@ -3,6 +3,7 @@ import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import TimeTable from '../components/timeTable/TimeTable.js';
 import Layout from '../components/Layout.js'
+import Head from 'next/head'
 
 const absoluteUrl = (req, setLocalhost) => {
     let protocol = 'https'
@@ -23,9 +24,14 @@ const absoluteUrl = (req, setLocalhost) => {
 
 const DepartureTimes = (props) => {
     return (
+        <>
+        <Head>
+            <title>Vertrektijden</title>
+        </Head>
         <Layout>
             <TimeTable tableData={props.departureTimes}></TimeTable>
         </Layout>
+        </>
     )
 };
 
