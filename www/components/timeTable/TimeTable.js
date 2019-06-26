@@ -31,7 +31,6 @@ import styled from 'styled-components';
         }
         .warning {
             color: red;
-            padding-left: 10px;
         }
         .spoorwijziging-true {
             color: red;
