@@ -70,7 +70,6 @@ try {
         });
     });
     //note: station kan meerder afgifte punten hebben
-
     server.get("/api/trips", function(req, res) {
         fetch(`${nsApi.tripsUrl}/trips?fromStation=${req.query.fromStation}&toStation=${req.query.toStation}`, {
             method: 'get',

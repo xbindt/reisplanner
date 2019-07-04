@@ -1,65 +1,17 @@
-import url from 'url'
-import React, { useState } from 'react'
-import Link from 'next/link'
-import 'isomorphic-unfetch'
-import Layout from '../components/Layout.js'
-import styled from 'styled-components';
-import Head from 'next/head'
-
+import React from 'react';
+import 'isomorphic-unfetch';
+import Layout from '../components/Layout';
+import Head from 'next/head';
 import { absoluteUrl } from '../utils/UrlHelper';
+import SearchBox from '../components/SearchBox';
+import { Grid, Cell } from "styled-css-grid";
 
-const AutoComplete = styled.ul`
-    list-style: none;
-    border: solid 1px ${props => props.theme.basecolor};
-    margin: 0;
-    padding: 0;
-    width: 100%;
-
-    li {
-        padding: 0;
-        margin: 0;
-
-        a {
-            color: ${props => props.theme.basecolor};
-            display: block;
-            padding: 0.5em 1em;
-            text-decoration: none;
-        }
-    }
-`
-
-const InputSearch = styled.input`
-    font-family: ${props => props.theme.fontbase};
-    font-size: 1em;
-    width: 100%;
-    padding: 15px;
-    background: transparent;
-    outline: none;
-    color: ${props => props.theme.basecolor};
-    border: solid 1px ${props => props.theme.basecolor};
-`
 
 
 const Home = (props) => {
 
-    const [stationsFiltered, setStationsFiltered] = useState([]);
-
-    const autoComplete = (event) => {
-        event.preventDefault();
-        let autoCompleteInput = event.currentTarget.value;
-        if(autoCompleteInput.length > 2 ) {
-            let filterdStations = props.stations.filter((station) => {
-                if(station.land.toLowerCase() === 'nl'){
-                    return station.namen.lang.toLowerCase().includes(autoCompleteInput.toLowerCase())
-                        || station.synoniemen.join().toLowerCase().includes(autoCompleteInput.toLowerCase());
-                }
-            });
-            setStationsFiltered(filterdStations);
-        }
-
-        if(autoCompleteInput.length === 0 ) {
-            setStationsFiltered([]);
-        }
+    const onBlurHandler = (station) => {
+        console.log(station);
     }
 
     return (
@@ -68,30 +20,21 @@ const Home = (props) => {
                 <title>Home</title>
             </Head>
             <Layout>
-                <label htmlFor="station">Station</label>
-                <div>
-                    <InputSearch id="station" type="text" autoComplete="off" placeholder="Typ uw station hier..." onKeyUp={(e) => autoComplete(e)} />
-                    <AutoComplete>
-                    {
-                        stationsFiltered.map((station) => {
-                            return (
-                                <li key={station.code} >
-                                    <Link
-                                        href={{pathname: '/departuretimes', query: { station: station.code }}}
-                                        as={`/departuretimes/${station.code}`}>
-                                        <a>{station.namen.lang}</a>
-                                    </Link>
-                                </li>
-                            );
-                            }
-                        )
-                    }
-                    </AutoComplete>
-                </div>
+                <form>
+                    <Grid columns="repeat(auto-fit, minmax(320px,1fr))">
+                        <Cell><SearchBox {...props} funcOnBlur={onBlurHandler} name="fromStation"/></Cell>
+                        <Cell><SearchBox {...props} funcOnBlur={onBlurHandler} name="toStation" /></Cell>
+                    </Grid>
+                </form>
             </Layout>
         </>
     )
 };
+{/* <Link
+href={{pathname: '/departuretimes', query: { station: station.code }}}
+as={`/departuretimes/${station.code}`}>
+<a>{station.namen.lang}</a>
+</Link> */}
 
 Home.getInitialProps = async ({ req }) => {
     /* NOTE - relative url in this function runs will not work and
@@ -104,6 +47,5 @@ Home.getInitialProps = async ({ req }) => {
     return { stations: data.payload }
 
 };
-
 
 export default Home;

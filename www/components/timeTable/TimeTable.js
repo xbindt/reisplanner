@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import uuid from 'uuid/v4';
 
    const TimeTable = (props) => {
 
@@ -57,7 +58,7 @@ import styled from 'styled-components';
             <tbody>
             {props.tableData.map((departureTime) => {
                 return(
-                    <tr key={departureTime.product.number}>
+                    <tr key={ uuid() }>
                         <td>
                             {transformToReadableDate(departureTime.plannedDateTime)}
                             <span className="warning">{transformToReadableDelay(departureTime.actualDateTime, departureTime.plannedDateTime)}</span>
@@ -68,15 +69,14 @@ import styled from 'styled-components';
                                 departureTime.messages === undefined ? '' : departureTime.messages.map(
                                     (message, index) => {
                                         return(
-                                            <>
+                                            <div key={ uuid() }>
                                                 <br/>
                                                 <sup
-                                                    key = {index}
                                                     className={message.style.toLowerCase()}
                                                 >
                                                     {message.message}
                                                 </sup>
-                                            </>
+                                            </div>
                                             )
                                     }
                                 )
