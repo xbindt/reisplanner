@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'isomorphic-unfetch';
 import Layout from '../components/Layout';
 import Head from 'next/head';
-import { absoluteUrl } from '../utils/UrlHelper';
+import { absoluteUrl, jsonToRequestParams } from '../utils/UrlHelper';
 import SearchBox from '../components/SearchBox';
 import { Grid, Cell } from "styled-css-grid";
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 
 
 const Home = (props) => {
+    const router = useRouter();
+    const [formState, setFormState] = useState([]);
 
-    const onBlurHandler = (station) => {
-        console.log(station);
+    const onBlurHandler = (inputName, station) => {
+        setFormState([
+            ...formState,
+            {
+                [inputName]: station.code
+            }
+        ]);
     }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        router.push('/trips?'+jsonToRequestParams(formState));
+    }
+
+    const InputSearchBtn = styled.button`
+        font-family: ${props => props.theme.fontbase};
+        font-size: 1em;
+        width: 100%;
+        padding: 15px;
+        background: transparent;
+        outline: none;
+        color: ${props => props.theme.basecolor};
+        border: solid 1px ${props => props.theme.basecolor};
+    `
 
     return (
         <>
@@ -20,10 +45,11 @@ const Home = (props) => {
                 <title>Home</title>
             </Head>
             <Layout>
-                <form>
-                    <Grid columns="repeat(auto-fit, minmax(320px,1fr))">
-                        <Cell><SearchBox {...props} funcOnBlur={onBlurHandler} name="fromStation"/></Cell>
-                        <Cell><SearchBox {...props} funcOnBlur={onBlurHandler} name="toStation" /></Cell>
+                <form onSubmit={handleSubmit} action="/trips">
+                    <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
+                        <Cell><SearchBox {...props} label="Van" name="fromStation" funcOnBlur={onBlurHandler} /></Cell>
+                        <Cell><SearchBox {...props} label="Naar" name="toStation" funcOnBlur={onBlurHandler} /></Cell>
+                        <Cell><InputSearchBtn>Plannen</InputSearchBtn></Cell>
                     </Grid>
                 </form>
             </Layout>

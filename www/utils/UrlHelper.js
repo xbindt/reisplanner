@@ -14,3 +14,13 @@ export const absoluteUrl = (req, setLocalhost) => {
         pathname: '/' // req.url
     })
 };
+
+export const jsonToRequestParams = (json) => {
+    const t = [];
+    Object.entries(json).map(([key, value]) => {
+        Object.keys(value).map(function(k) {
+            t.push(encodeURIComponent(k) + '=' + encodeURIComponent(value[k]));
+        });
+    });
+    return t.join('&');
+}

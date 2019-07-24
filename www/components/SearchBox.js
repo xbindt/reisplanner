@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, Fragment} from 'react';
 import styled from 'styled-components';
 
 const AutoCompleteList = styled.ul`
@@ -34,7 +33,6 @@ const InputSearch = styled.input`
     border: solid 1px ${props => props.theme.basecolor};
 `
 
-
 const SearchBox = (props) => {
     const [stationsFiltered, setStationsFiltered] = useState([]);
     const [inputValue, setInputValue] = useState('');
@@ -61,29 +59,29 @@ const SearchBox = (props) => {
         autoComplete(event.target.value);
     }
 
-    const handleBlur = (station) => {
-        props.funcOnBlur(station)
+    const handleBlur = (inputName, station) => {
+        props.funcOnBlur(inputName, station)
     }
 
     return (
-        <>
-        <label htmlFor="station">Station</label>
-        <div>
-            <InputSearch value={inputValue} id="station" name={props.name} type="text" autoComplete="off" placeholder="Typ uw station hier..." onChange={handleChange.bind(this)} />
-            <AutoCompleteList>
-            {
-                stationsFiltered.map((station) => {
-                    return (
-                        <li key={station.code} >
-                            <span onClick={(e) => {handleBlur(station), setInputValue(station.namen.lang); setStationsFiltered([]);} }>{station.namen.lang}</span>
-                        </li>
-                    );
+        <Fragment>
+            <label htmlFor={props.name}>{props.label}</label>
+            <div>
+                <InputSearch value={inputValue} id={props.name} name={props.name} type="text" autoComplete="off" placeholder="Typ uw station hier..." onChange={handleChange} />
+                <AutoCompleteList>
+                {
+                    stationsFiltered.map((station) => {
+                        return (
+                            <li key={station.code} >
+                                <span onClick={(e) => {handleBlur(props.name, station), setInputValue(station.namen.lang); setStationsFiltered([]);} }>{station.namen.lang}</span>
+                            </li>
+                        );
+                    }
+                    )
                 }
-                )
-            }
-            </AutoCompleteList>
-        </div>
-        </>
+                </AutoCompleteList>
+            </div>
+        </Fragment>
     )
 };
 

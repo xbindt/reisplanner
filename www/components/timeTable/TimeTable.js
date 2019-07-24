@@ -1,19 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import uuid from 'uuid/v4';
+import {transformToReadableDate, transformToReadableDelay} from '../../utils/DateHelper';
 
    const TimeTable = (props) => {
-
-    const transformToReadableDate = (date) => {
-        const nwDate = new Date(date);
-        const minutes =  (nwDate.getMinutes() < 10 ? '0' : '') + nwDate.getMinutes();
-        return `${nwDate.getHours()} : ${minutes}`;
-    }
-
-    const transformToReadableDelay = (actual, planned) => {
-       const delay = Math.ceil((new Date(actual) - new Date(planned))/60000);
-       return delay > 0 ? `+ ${delay}` : '';
-    }
 
     const TimeTable = styled.table`
         border-collapse: collapse;

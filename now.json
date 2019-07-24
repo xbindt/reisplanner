@@ -19,6 +19,10 @@
       "dest": "/www/departuretimes?station=$station"
     },
     {
+      "src": "/trips?fromStation=(?<bookCode>[^/]*)&toStation=(?<chapterNumber>[^/]*)",
+      "dest": "/trips?fromStation=$bookCode&toStation=$chapterNumber"
+    },
+    {
       "src": "/(.*)",
       "dest": "/www/$1"
     }

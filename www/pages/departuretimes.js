@@ -20,7 +20,6 @@ const DepartureTimes = (props) => {
 };
 
 DepartureTimes.getInitialProps = async ({query, req }) => {
-    console.log(query)
     const { station } = query
 
     /* NOTE - relative url in this function runs will not work and
