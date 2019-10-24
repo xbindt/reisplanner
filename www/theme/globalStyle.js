@@ -7,6 +7,7 @@ const myTheme = {
     basecolor: '#333333',
     secondarycolor: '#222222',
     basebackgroundcolor: '#fede54',
+    warningcolor: '#ff0000',
 };
 export const theme1 = myTheme;
 
@@ -23,7 +24,7 @@ export const GlobalStyles = createGlobalStyle`
     html {
         font-family: ${myTheme.fontbase};
         font-weight: 400;
-        font-size: 14px;
+        font-size: 1em;
         color: ${myTheme.basecolor};
         * {
             box-sizing: border-box;
@@ -32,6 +33,9 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         font-size: 1em;
+        @media (max-width: 600px) {
+            font-size: 14px;
+        }
         background-color: ${myTheme.basebackgroundcolor};
     }
 

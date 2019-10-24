@@ -6,22 +6,21 @@ import Head from 'next/head';
 
 import { absoluteUrl } from '../utils/UrlHelper';
 
-const DepartureTimes = (props) => {
+const Departures = (props) => {
     return (
         <>
         <Head>
             <title>Vertrektijden</title>
         </Head>
         <Layout>
-            <TimeTable tableData={props.departureTimes}></TimeTable>
+            <TimeTable tableData={props.departures}></TimeTable>
         </Layout>
         </>
     )
 };
 
-DepartureTimes.getInitialProps = async ({query, req }) => {
+Departures.getInitialProps = async ({query, req }) => {
     const { station } = query
-
     /* NOTE - relative url in this function runs will not work and
     will get ECONNRESET error since it runs on server context */
     const baseUrl = absoluteUrl(req, 'localhost:9999');
@@ -30,9 +29,9 @@ DepartureTimes.getInitialProps = async ({query, req }) => {
     const res = await fetch(apiUrl);
     const data = await res.json();
 
-    return { departureTimes: data.payload.departures }
+    return { departures: data.payload.departures }
 
 };
 
 
-export default DepartureTimes;
+export default Departures;

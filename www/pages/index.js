@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import Head from 'next/head';
 import { absoluteUrl, jsonToRequestParams } from '../utils/UrlHelper';
 import SearchBox from '../components/SearchBox';
-import { Grid, Cell } from "styled-css-grid";
+import { Grid, Cell } from 'styled-css-grid';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -12,20 +12,34 @@ import styled from 'styled-components';
 
 const Home = (props) => {
     const router = useRouter();
-    const [formState, setFormState] = useState([]);
+    const [formState, setFormState] = useState({});
+    const [formDepartureState, setFormDepartureState] = useState({});
 
     const onBlurHandler = (inputName, station) => {
-        setFormState([
+        setFormState({
             ...formState,
-            {
+            ...{
+                [inputName]: station.namen.lang
+            }
+        });
+    }
+
+    const onBlurHandlerDepartures = (inputName, station) => {
+        setFormDepartureState({
+            ...formDepartureState,
+            ...{
                 [inputName]: station.code
             }
-        ]);
+        });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         router.push('/trips?'+jsonToRequestParams(formState));
+    }
+    const handleSubmitDepartures = (event) => {
+        event.preventDefault();
+        router.push('/departures?'+jsonToRequestParams(formDepartureState));
     }
 
     const InputSearchBtn = styled.button`
@@ -46,10 +60,18 @@ const Home = (props) => {
             </Head>
             <Layout>
                 <form onSubmit={handleSubmit} action="/trips">
+                    <h2>Trip</h2>
                     <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
                         <Cell><SearchBox {...props} label="Van" name="fromStation" funcOnBlur={onBlurHandler} /></Cell>
                         <Cell><SearchBox {...props} label="Naar" name="toStation" funcOnBlur={onBlurHandler} /></Cell>
                         <Cell><InputSearchBtn>Plannen</InputSearchBtn></Cell>
+                    </Grid>
+                </form>
+                <form onSubmit={handleSubmitDepartures} action="/departures">
+                    <h2>Vertrektijden</h2>
+                    <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
+                        <Cell><SearchBox {...props} label="Van" name="station" funcOnBlur={onBlurHandlerDepartures} /></Cell>
+                        <Cell><InputSearchBtn>Vertrektijden</InputSearchBtn></Cell>
                     </Grid>
                 </form>
             </Layout>

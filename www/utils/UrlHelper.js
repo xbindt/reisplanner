@@ -17,10 +17,8 @@ export const absoluteUrl = (req, setLocalhost) => {
 
 export const jsonToRequestParams = (json) => {
     const t = [];
-    Object.entries(json).map(([key, value]) => {
-        Object.keys(value).map(function(k) {
-            t.push(encodeURIComponent(k) + '=' + encodeURIComponent(value[k]));
-        });
-    });
+    for (let [key, value] of Object.entries(json)) {
+        t.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+    }
     return t.join('&');
 }

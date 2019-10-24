@@ -7,13 +7,14 @@ const AutoCompleteList = styled.ul`
     border-top: none;
     margin: 0;
     padding: 0;
-    width: 100%;
+    position: absolute;
+    background-color:${props => props.theme.basebackgroundcolor};
 
     li {
         padding: 0;
         margin: 0;
 
-        a {
+        span {
             color: ${props => props.theme.basecolor};
             display: block;
             padding: 0.5em 1em;
@@ -73,7 +74,7 @@ const SearchBox = (props) => {
                     stationsFiltered.map((station) => {
                         return (
                             <li key={station.code} >
-                                <span onClick={(e) => {handleBlur(props.name, station), setInputValue(station.namen.lang); setStationsFiltered([]);} }>{station.namen.lang}</span>
+                                <span onClick={(e) => {handleBlur(props.name, station); setInputValue(station.namen.lang); setStationsFiltered([]);} }>{station.namen.lang}</span>
                             </li>
                         );
                     }

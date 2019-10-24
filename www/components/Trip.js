@@ -1,25 +1,37 @@
 import React, {Fragment} from 'react';
 import uuid from 'uuid/v4';
-import {transformToReadableDate} from '../utils/DateHelper';
+import {transformToReadableDate, transformToReadableDelay} from '../utils/DateHelper';
 import Message from '../components/Message';
 import { Grid, Cell } from 'styled-css-grid';
+import styled from 'styled-components';
+import Delay from '../components/Delay';
+
+const Row = styled.div`
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    background: transparent;
+    outline: none;
+    color: ${props => props.theme.basecolor};
+    border: solid 1px ${props => props.theme.basecolor};
+    background: white;
+    cursor: pointer;
+    `
 
 const Trip = (props) => {
-    const departureLeg = props.legs[0].origin;
-    const arrivalLeg = props.legs[props.legs.length-1].destination;
     return(
-        <Fragment>
+        <Row>
             {props.legs.map((leg) => {
                 return (
                     <Grid columns={3} key={ uuid()}>
-                        <Cell>{leg.origin.name } {transformToReadableDate(leg.origin.plannedDateTime)}</Cell>
-                        <Cell>-></Cell>
-                        <Cell>{leg.destination.name} {transformToReadableDate(leg.destination.plannedDateTime)}</Cell>
-                        <Cell>{leg.messages.map(message => (<Message key={ uuid()} {...message} /> ))}</Cell>
+                        <Cell>{leg.origin.name }<br/>{transformToReadableDate(leg.origin.plannedDateTime)} <Delay>{transformToReadableDelay(leg.origin.actualDateTime, leg.origin.plannedDateTime)}</Delay></Cell>
+                        <Cell center >-></Cell>
+                        <Cell>{leg.destination.name}<br/>{transformToReadableDate(leg.destination.plannedDateTime)} <Delay>{transformToReadableDelay(leg.destination.actualDateTime, leg.destination.plannedDateTime)}</Delay></Cell>
+                        {leg.messages.length > 0 && (<Cell width={3}>{leg.messages.map(message => (<Message key={ uuid()} {...message} /> ))}</Cell>)}
                     </Grid>
                 )
             })}
-        </Fragment>
+        </Row>
     )
 };
 
