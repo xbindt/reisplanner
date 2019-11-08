@@ -24,9 +24,9 @@ yarn
 yarn start
 ```
 
-    Web App is available on port 3000
+Web App is available on port 3000
 
-        http://localhost:3000
+http://localhost:3000
 
 ## Steps to deploy
 https://apiportal.ns.nl/

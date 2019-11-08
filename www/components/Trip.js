@@ -7,15 +7,9 @@ import styled from 'styled-components';
 import Delay from '../components/Delay';
 
 const Row = styled.div`
-    width: 100%;
-    height: 100%;
     padding: 1em;
-    background: transparent;
-    outline: none;
     color: ${props => props.theme.basecolor};
     border: solid 1px ${props => props.theme.basecolor};
-    background: white;
-    cursor: pointer;
     `
 
 const Trip = (props) => {

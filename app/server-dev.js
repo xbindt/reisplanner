@@ -1,12 +1,13 @@
-const express = require('express')
-const cors = require('cors')
+import express from 'express';
+import cors from 'cors';
 
 const server = express()
-const port = 9999
-
-const api = require('./routes/api')
-
 server.use(cors())
-server.use(api)
+const port = 9999
+const api = require('./routes/api');
+server.use(api);
+
+const gaphql = require('./routes/graphql');
+server.use(gaphql);
 
 server.listen(port, () => console.log(`API on port ${port}`))

@@ -1,4 +1,5 @@
 try {
+
     const fetch = require('node-fetch');
     var mcache = require('memory-cache');
     const nsApi = {
@@ -39,7 +40,7 @@ try {
         .then(res => res.json())
         .then(json => {
             res.writeHead(200, {"content-type":"application/json"});
-            json = JSON.stringify(json);
+            json = JSON.stringify(json.payload);
             res.end(json);
         });
     });
@@ -84,7 +85,8 @@ try {
     });
 
     module.exports = server
-}
+
+    }
 catch (ex) {
     console.log('API Error', ex)
 }
@@ -94,3 +96,11 @@ catch (ex) {
 // http://data.openov.nl/
 // https://developer.ns.nl/docs/mlab/reisinfo
 // https://www.prisma.io/blog/how-to-wrap-a-rest-api-with-graphql-8bf3fb17547d
+// https://github.com/coryhouse/graphql/blob/master/examples/wrap-rest-api/src/schema.js
+// https://www.apollographql.com/docs/link/links/rest/#gatsby-focus-wrapper
+// https://graphql-modules.com/docs/recipes/data-sources
+// https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
+// https://www.robinwieruch.de/graphql-apollo-server-tutorial#apollo-server-setup-express
+//
+// https://blog.apollographql.com/layering-graphql-on-top-of-rest-569c915083ad
+// https://www.freecodecamp.org/news/how-to-enable-es6-and-beyond-syntax-with-node-and-express-68d3e11fe1ab/

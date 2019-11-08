@@ -4,12 +4,28 @@
   "author": "havoc",
   "license": "MIT",
   "dependencies": {
+    "apollo-datasource-rest": "^0.6.6",
+    "apollo-server": "^2.9.7",
+    "apollo-server-express": "^2.5.0-rc.0",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
     "memory-cache": "^0.2.0",
-    "node-fetch": "^2.5.0"
+    "node-fetch": "^2.5.0",
+    "save": "^2.4.0"
   },
   "scripts": {
-    "start": "node server-dev.js"
+    "start": "babel-node server-dev.js",
+    "server": "babel-node server-dev.js",
+    "dev": "NODE_ENV=development npm-run-all server"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/plugin-transform-runtime": "^7.6.2"
   }
 }

@@ -15,6 +15,10 @@
       "dest": "/app/routes/api"
     },
     {
+      "src": "/graphql/(.*)",
+      "dest": "/app/routes/graphql"
+    },
+    {
       "src": "/departuretimes/(?<station>[^/]+)$",
       "dest": "/www/departuretimes?station=$station"
     },

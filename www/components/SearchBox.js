@@ -19,6 +19,10 @@ const AutoCompleteList = styled.ul`
             display: block;
             padding: 0.5em 1em;
             text-decoration: none;
+            &:hover{
+                color: ${props => props.theme.basehovercolor};
+                background-color: ${props => props.theme.basehoverbackgroundcolor};
+            }
         }
     }
 `
@@ -29,7 +33,6 @@ const InputSearch = styled.input`
     width: 100%;
     padding: 15px;
     background: transparent;
-    outline: none;
     color: ${props => props.theme.basecolor};
     border: solid 1px ${props => props.theme.basecolor};
 `
@@ -71,7 +74,7 @@ const SearchBox = (props) => {
                 <InputSearch value={inputValue} id={props.name} name={props.name} type="text" autoComplete="off" placeholder="Typ uw station hier..." onChange={handleChange} />
                 <AutoCompleteList>
                 {
-                    stationsFiltered.map((station) => {
+                    stationsFiltered.map((station) => {;
                         return (
                             <li key={station.code} >
                                 <span onClick={(e) => {handleBlur(props.name, station); setInputValue(station.namen.lang); setStationsFiltered([]);} }>{station.namen.lang}</span>

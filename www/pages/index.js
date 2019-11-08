@@ -48,7 +48,6 @@ const Home = (props) => {
         width: 100%;
         padding: 15px;
         background: transparent;
-        outline: none;
         color: ${props => props.theme.basecolor};
         border: solid 1px ${props => props.theme.basecolor};
     `
@@ -92,7 +91,7 @@ Home.getInitialProps = async ({ req }) => {
 
     const res = await fetch(apiUrl)
     const data = await res.json()
-    return { stations: data.payload }
+    return { stations: data }
 
 };
 
