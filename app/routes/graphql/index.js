@@ -1,7 +1,7 @@
 import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
-import { MvrpAPI } from './dataSource';
+import { nsAPI } from './dataSource';
 //import 'dotenv/config';
 
 const port = 8000
@@ -20,15 +20,15 @@ const schema = gql`
     id: ID!
     username: String!
   }
-  type Namen {
-    kort:String!
-    lang: String!
-    middel: String!
+  type Names {
+    lang: String
+    kort:  String
+    middel:  String
   }
   type Station {
     code: String!
-    land: String!
-    name: [Namen!]
+    names: [Names]
+    synoniemen: [String]
   }
 `;
 
@@ -56,7 +56,7 @@ const resolvers = {
     me: () => {
       return me;
     },
-    stations: (root, args, { dataSources }) => dataSources.mvrpAPI.getAllStations(),
+    stations: (root, args, { dataSources }) => dataSources.nsAPI.getAllStations(),
   },
 };
 
@@ -64,7 +64,7 @@ const serverA = new ApolloServer({
   typeDefs: schema,
   resolvers,
   dataSources: () => ({
-    mvrpAPI: new MvrpAPI()
+    nsAPI: new nsAPI()
   })
 });
 
