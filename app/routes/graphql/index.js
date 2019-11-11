@@ -20,8 +20,15 @@ const schema = gql`
     id: ID!
     username: String!
   }
+  type Namen {
+    kort:String!
+    lang: String!
+    middel: String!
+  }
   type Station {
-    id: Int!
+    code: String!
+    land: String!
+    name: [Namen!]
   }
 `;
 
