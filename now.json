@@ -16,7 +16,7 @@
     },
     {
       "src": "/graphql/(.*)",
-      "dest": "/app/routes/graphql"
+      "dest": "/apollo/routes/graphql"
     },
     {
       "src": "/departuretimes/(?<station>[^/]+)$",
@@ -34,6 +34,10 @@
   "builds": [
     {
       "src": "app/routes/**/*.js",
+      "use": "@now/node"
+    },
+    {
+      "src": "apollo/routes/**/*.js",
       "use": "@now/node"
     },
     {
