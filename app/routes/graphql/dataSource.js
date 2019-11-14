@@ -1,9 +1,14 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
+import cors from 'cors';
 
 export class nsAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'http://localhost:9999/api/';
+    this.cors = cors();
+    this.baseURL = 'https://nextjs-express-nowv2.xanderbindt.now.sh/api/';
+    //if(process.env.NODE_ENV !== 'production') {
+      //this.baseURL = 'http://localhost:9999/api/';
+    //}
   }
 
   async getAllStations() {
@@ -25,9 +30,9 @@ export class nsAPI extends RESTDataSource {
         station.namen
       ],
       synoniemen: station.synoniemen,
-
     }
   }
 };
 
 // https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map
+// https://dev.to/doylecodes/cors-in-apollo-client-apollo-server-3cbj

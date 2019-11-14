@@ -2,7 +2,6 @@ import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import { nsAPI } from './dataSource';
-//import 'dotenv/config';
 
 const port = 8000
 
@@ -68,7 +67,7 @@ const serverA = new ApolloServer({
   })
 });
 
-serverA.applyMiddleware({ app, path: '/graphql' });
+serverA.applyMiddleware({ app, path: '/graphql', cors: false });
 
 app.listen({ port: port }, () => {
   console.log(`Apollo Server on http://localhost:${port}/graphql`);

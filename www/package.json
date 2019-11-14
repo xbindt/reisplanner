@@ -15,7 +15,7 @@
     "babel-plugin-styled-components": "^1.10.0"
   },
   "scripts": {
-    "start": "next"
+    "start": "next",
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.0"

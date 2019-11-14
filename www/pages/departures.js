@@ -29,7 +29,7 @@ Departures.getInitialProps = async ({query, req }) => {
     const res = await fetch(apiUrl);
     const data = await res.json();
 
-    return { departures: data.payload.departures }
+    return { departures: data.departures }
 
 };
 

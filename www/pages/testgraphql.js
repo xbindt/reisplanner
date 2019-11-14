@@ -1,44 +1,41 @@
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
-import { withRouter } from 'next/router'
 import Layout from '../components/Layout';
 import Head from 'next/head';
 
 import { absoluteUrl } from '../utils/UrlHelper';
 
-const GrapQL = (props) => {
+const TestGrapQL = (props) => {
     return (
         <>
         <Head>
             <title>Vertrektijden</title>
         </Head>
         <Layout>
-        hallo
         {
-            JSON.stringify(props.user.me)
+            JSON.stringify(props.stations)
         }
         </Layout>
         </>
     )
 };
 
-GrapQL.getInitialProps = async ({query, req }) => {
+TestGrapQL.getInitialProps = async ({query, req }) => {
     const { station } = query
     /* NOTE - relative url in this function runs will not work and
     will get ECONNRESET error since it runs on server context */
-    const baseUrl = absoluteUrl(req, 'localhost:8000');
-    const apiUrl = `${baseUrl}graphql/`;
+    const baseUrl = absoluteUrl(req, 'localhost:3000');
+    const apiUrl = process.env.NODE_ENV === 'production' ? `${baseUrl}graphql` : 'http://localhost:8000/graphql';
 
     const res = await fetch(apiUrl,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: '{ me { username } }' }),
+        body: JSON.stringify({ query: '{ stations { code names{lang} synoniemen} }' }),
     });
     const response = await res.json();
-    console.log(response.data)
-    return { user: response.data };
+    return { stations: response.data };
 
 };
 
 
-export default GrapQL;
+export default TestGrapQL;

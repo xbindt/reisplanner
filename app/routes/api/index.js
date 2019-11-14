@@ -53,7 +53,7 @@ try {
         .then(res => res.json())
         .then(json => {
             res.writeHead(200, {"content-type":"application/json"});
-            json = JSON.stringify(json);
+            json = JSON.stringify(json.payload);
             res.end(json);
         });
     });
@@ -106,3 +106,7 @@ catch (ex) {
 // https://www.freecodecamp.org/news/how-to-enable-es6-and-beyond-syntax-with-node-and-express-68d3e11fe1ab/
 
 // https://www.apollographql.com/docs/tutorial/data-source/
+
+// https://openweathermap.org/current
+// https://github.com/nils-werner/owm-display/tree/gh-pages/img/weather/tiny
+// https://openweathermap.org/weather-conditions

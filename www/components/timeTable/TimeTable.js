@@ -34,7 +34,6 @@ import {transformToReadableDate, transformToReadableDelay} from '../../utils/Dat
             text-align: center;
         }
     `
-
    return (
     <div>
         <TimeTable>
