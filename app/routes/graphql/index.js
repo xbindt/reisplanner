@@ -64,7 +64,8 @@ const serverA = new ApolloServer({
   resolvers,
   dataSources: () => ({
     nsAPI: new nsAPI()
-  })
+  }),
+  playground: true,
 });
 
 serverA.applyMiddleware({ app, path: '/graphql', cors: false });
