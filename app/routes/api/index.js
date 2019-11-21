@@ -110,3 +110,6 @@ catch (ex) {
 // https://openweathermap.org/current
 // https://github.com/nils-werner/owm-display/tree/gh-pages/img/weather/tiny
 // https://openweathermap.org/weather-conditions
+
+
+// https://spectrum.chat/zeit/now/how-to-deploy-next-js-with-graphql-backend-on-zeit-now~a3efc0cb-4461-4034-ae4d-14d085fd7b3b
