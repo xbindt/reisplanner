@@ -5,7 +5,7 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'https://nextjs-express-nowv2.xanderbindt.now.sh/api/';
+    this.baseURL = 'http://localhost:9999/api';
     //if(process.env.NODE_ENV !== 'production') {
       //this.baseURL = 'http://localhost:9999/api/';
     //}
