@@ -16,7 +16,7 @@
     },
     {
       "src": "/graphql/(.*)",
-      "dest": "/apollo/"
+      "dest": "/apollo/routes/graphql"
     },
     {
       "src": "/departuretimes/(?<station>[^/]+)$",

@@ -1,12 +1,7 @@
-import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
-import cors from 'cors';
 import { nsAPI } from './dataSource';
 
-const port = 8000
-
-const app = express();
-app.use(cors());
+const app = require("../../lib/server");
 
 const schema = gql`
   type Query {
@@ -66,12 +61,12 @@ const serverA = new ApolloServer({
     nsAPI: new nsAPI()
   }),
   playground: true,
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log('graphQLErrors', graphQLErrors)
+    console.log('networkError', networkError)
+  }
 });
 
 serverA.applyMiddleware({ app, path: '/graphql', cors: false });
-
-app.listen({ port: port }, () => {
-  console.log(`Apollo Server on http://localhost:${port}/graphql`);
-});
 
 module.exports = app;

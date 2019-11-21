@@ -5,16 +5,18 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'http://localhost:9999/api';
-    //if(process.env.NODE_ENV !== 'production') {
-      //this.baseURL = 'http://localhost:9999/api/';
-    //}
+    this.baseURL = 'https://ns-api.nl/reisinfo/api/v2'
+  }
+
+  willSendRequest(request) {
+    request.headers.set('Content-Type', 'application/json');
+    request.headers.set('x-api-key', 'gpdUysxVJ2e8ameC2hAWVs6TF3R5HfaOisFz2B70');
   }
 
   async getAllStations() {
     const response = await this.get('stations');
-    let arr = Array.isArray(response)
-    ? response.filter(station => this.landReducer(station)).map(station => this.stationsReducer(station))
+    let arr = Array.isArray(response.payload)
+    ? response.payload.filter(station => this.landReducer(station)).map(station => this.stationsReducer(station))
     : [];
     return arr;
   }
