@@ -5,7 +5,10 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'http://localhost:9999/api/';
+    this.baseURL = 'http://localhost:9999/api';
+    //if(process.env.NODE_ENV !== 'production') {
+      //this.baseURL = 'http://localhost:9999/api/';
+    //}
   }
 
   async getAllStations() {
