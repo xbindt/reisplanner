@@ -1,23 +1,23 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import fetch from 'isomorphic-unfetch';
 import TimeTable from '../components/timeTable/TimeTable';
 import Layout from '../components/Layout';
 import Head from 'next/head';
-import Loader from '../components/Loader';
+
 
 import { absoluteUrl } from '../utils/UrlHelper';
 
 const Departures = (props) => {
 
     return (
-        <Loader>
+        <Fragment>
             <Head>
                 <title>Vertrektijden</title>
             </Head>
             <Layout>
                 <TimeTable tableData={props.departures}></TimeTable>
             </Layout>
-        </Loader>
+        </Fragment>
     )
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import 'isomorphic-unfetch';
 import Layout from '../components/Layout';
 import Head from 'next/head';
@@ -7,8 +7,6 @@ import SearchBox from '../components/SearchBox';
 import { Grid, Cell } from 'styled-css-grid';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Loader from '../components/Loader';
-
 
 
 const Home = (props) => {
@@ -54,7 +52,7 @@ const Home = (props) => {
     `
 
     return (
-        <Loader>
+        <Fragment>
             <Head>
                 <title>Home</title>
             </Head>
@@ -75,7 +73,7 @@ const Home = (props) => {
                     </Grid>
                 </form>
             </Layout>
-        </Loader>
+        </Fragment>
     )
 };
 {/* <Link
