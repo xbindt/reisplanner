@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'isomorphic-unfetch';
 import Layout from '../components/Layout';
 import Head from 'next/head';
@@ -7,6 +7,7 @@ import SearchBox from '../components/SearchBox';
 import { Grid, Cell } from 'styled-css-grid';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import Loader from '../components/Loader';
 
 
 
@@ -53,7 +54,7 @@ const Home = (props) => {
     `
 
     return (
-        <>
+        <Loader>
             <Head>
                 <title>Home</title>
             </Head>
@@ -74,7 +75,7 @@ const Home = (props) => {
                     </Grid>
                 </form>
             </Layout>
-        </>
+        </Loader>
     )
 };
 {/* <Link
@@ -84,14 +85,16 @@ as={`/departuretimes/${station.code}`}>
 </Link> */}
 
 Home.getInitialProps = async ({ req }) => {
-    /* NOTE - relative url in this function runs will not work and
-    will get ECONNRESET error since it runs on server context */
     const baseUrl = absoluteUrl(req, 'localhost:3000');
-    const apiUrl = process.env.NODE_ENV === 'production' ? `${baseUrl}api/stations` : 'http://localhost:9999/api/stations';
+    const apiUrl = process.env.NODE_ENV === 'production' ? `${baseUrl}graphql/` : 'http://localhost:8888/graphql';
 
-    const res = await fetch(apiUrl)
-    const data = await res.json()
-    return { stations: data }
+    const res = await fetch(apiUrl,{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: '{ stations { code namen{lang middel} synoniemen} }' }),
+    });
+    const response = await res.json();
+    return { stations: response.data.stations };
 
 };
 

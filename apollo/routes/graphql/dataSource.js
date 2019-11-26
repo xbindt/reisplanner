@@ -5,7 +5,7 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'https://ns-api.nl/reisinfo/api/v2'
+    this.baseURL = 'https://ns-api.nl/reisinfo/api/v2';
   }
 
   willSendRequest(request) {
@@ -16,8 +16,17 @@ export class nsAPI extends RESTDataSource {
   async getAllStations() {
     const response = await this.get('stations');
     let arr = Array.isArray(response.payload)
-    ? response.payload.filter(station => this.landReducer(station)).map(station => this.stationsReducer(station))
+    ? response.payload.filter(station => this.landReducer(station))
     : [];
+    return arr;
+  }
+
+  // .map(DepartureTime => this.departureReducer(DepartureTime))
+
+  async getDepartures(code) {
+    const response = await this.get(`departures?station=${code}`);
+    let arr = Array.isArray(response.payload.departures)
+    ? response.payload.departures : [];
     return arr;
   }
 
@@ -25,12 +34,21 @@ export class nsAPI extends RESTDataSource {
     return station.land === 'NL';
   }
 
+  departureReducer(DepartureTime){
+    return {
+      plannedDateTime: DepartureTime.plannedDateTime,
+      actualDateTime: DepartureTime.actualDateTime,
+      messages: DepartureTime.messages,
+      direction: DepartureTime.direction,
+      actualTrack: DepartureTime.actualTrack,
+      plannedTrack: DepartureTime.plannedTrack,
+    }
+  }
+
   stationsReducer(station){
     return {
       code: station.code,
-      names: [
-        station.namen
-      ],
+      namen: station.namen,
       synoniemen: station.synoniemen,
     }
   }

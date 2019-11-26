@@ -13,7 +13,7 @@ import {transformToReadableDate, transformToReadableDelay} from '../../utils/Dat
             font-family: ${props => props.theme.fontsecondary};
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 8;
             background: ${props => props.theme.basebackgroundcolor};
         }
         td {
@@ -45,7 +45,7 @@ import {transformToReadableDate, transformToReadableDelay} from '../../utils/Dat
                 </tr>
             </thead>
             <tbody>
-            {props.tableData.map((departureTime) => {
+            {props.tableData && props.tableData.map((departureTime) => {
                 return(
                     <tr key={ uuid() }>
                         <td>
@@ -55,20 +55,11 @@ import {transformToReadableDate, transformToReadableDelay} from '../../utils/Dat
                         <td>
                             {departureTime.direction}
                             {
-                                departureTime.messages === undefined ? '' : departureTime.messages.map(
-                                    (message, index) => {
-                                        return(
-                                            <div key={ uuid() }>
-                                                <br/>
-                                                <sup
-                                                    className={message.style.toLowerCase()}
-                                                >
-                                                    {message.message}
-                                                </sup>
-                                            </div>
-                                            )
-                                    }
-                                )
+                                departureTime.messages && departureTime.messages.map(message => (
+                                    <p key={ uuid() } className={message.style.toLowerCase()}>
+                                        {message.message}
+                                    </p>
+                                ))
                             }
                         </td>
                         <td className="departuretime">

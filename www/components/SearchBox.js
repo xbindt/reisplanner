@@ -45,10 +45,8 @@ const SearchBox = (props) => {
         let autoCompleteInput = event
         if(autoCompleteInput.length > 2 ) {
             let filterdStations = props.stations.filter((station) => {
-                if(station.land.toLowerCase() === 'nl'){
-                    return station.namen.lang.toLowerCase().includes(autoCompleteInput.toLowerCase())
-                        || station.synoniemen.join().toLowerCase().includes(autoCompleteInput.toLowerCase());
-                }
+                return station.namen.lang.toLowerCase().includes(autoCompleteInput.toLowerCase())
+                    || station.synoniemen.join().toLowerCase().includes(autoCompleteInput.toLowerCase());
             });
             setStationsFiltered(filterdStations);
         }

@@ -9,20 +9,36 @@ const schema = gql`
     me: User
     user(id: ID!): User
     stations: [Station!]
+    departures(code: String!): [DepartureTime]
   }
   type User {
     id: ID!
     username: String!
   }
-  type Names {
+  type Namen {
     lang: String
     kort:  String
     middel:  String
   }
   type Station {
     code: String!
-    names: [Names]
+    namen: Namen
     synoniemen: [String]
+  }
+  type Message {
+    message: String
+    style: String
+  }
+  type DepartureTime {
+    plannedDateTime: String
+    actualDateTime: String
+    messages: [Message]
+    direction: String
+    actualTrack: String
+    plannedTrack: String
+  }
+  type Departures {
+    code: Station
   }
 `;
 
@@ -51,8 +67,10 @@ const resolvers = {
       return me;
     },
     stations: (root, args, { dataSources }) => dataSources.nsAPI.getAllStations(),
+    departures: (root, args, { dataSources }) => dataSources.nsAPI.getDepartures(args.code),
   },
 };
+
 
 const serverA = new ApolloServer({
   typeDefs: schema,
@@ -60,7 +78,7 @@ const serverA = new ApolloServer({
   dataSources: () => ({
     nsAPI: new nsAPI()
   }),
-  playground: true,
+  playground: process.env.NODE_ENV==='development',
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)
