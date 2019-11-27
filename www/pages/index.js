@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'isomorphic-unfetch';
 import Layout from '../components/Layout';
 import Head from 'next/head';
@@ -8,7 +8,6 @@ import { Grid, Cell } from 'styled-css-grid';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Loader from '../components/Loader';
-
 
 
 const Home = (props) => {
@@ -36,11 +35,11 @@ const Home = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        router.push('/trips?'+jsonToRequestParams(formState));
+        router.push('/trips?' + jsonToRequestParams(formState));
     }
     const handleSubmitDepartures = (event) => {
         event.preventDefault();
-        router.push('/departures?'+jsonToRequestParams(formDepartureState));
+        router.push('/departures?' + jsonToRequestParams(formDepartureState));
     }
 
     const InputSearchBtn = styled.button`
@@ -88,7 +87,7 @@ Home.getInitialProps = async ({ req }) => {
     const baseUrl = absoluteUrl(req, 'localhost:3000');
     const apiUrl = process.env.NODE_ENV === 'production' ? `${baseUrl}graphql/` : 'http://localhost:8888/graphql';
 
-    const res = await fetch(apiUrl,{
+    const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: '{ stations { code namen{lang middel} synoniemen} }' }),

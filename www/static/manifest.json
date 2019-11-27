@@ -1,8 +1,8 @@
 {
     "name": "Reisplanner",
     "short_name": "Planner",
-    "theme_color": "#ffcf00",
-    "background_color": "#ffcf00",
+    "theme_color": "#e9c46a",
+    "background_color": "#e9c46a",
     "display": "standalone",
     "Scope": "/",
     "start_url": "/",

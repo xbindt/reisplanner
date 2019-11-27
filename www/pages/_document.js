@@ -4,18 +4,19 @@ import { ServerStyleSheet } from 'styled-components';
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     // Step 1: Create an instance of ServerStyleSheet
-    const sheet = new ServerStyleSheet();
+    // const sheet = new ServerStyleSheet();
 
-    // Step 2: Retrieve styles from components in the page
-    const page = renderPage((App) => (props) =>
-      sheet.collectStyles(<App {...props} />),
-    );
+    // // Step 2: Retrieve styles from components in the page
+    // const page = renderPage((App) => (props) =>
+    //   sheet.collectStyles(<App {...props} />),
+    // );
 
-    // Step 3: Extract the styles as <style> tags
-    const styleTags = sheet.getStyleElement();
+    // // Step 3: Extract the styles as <style> tags
+    // const styleTags = sheet.getStyleElement();
 
-    // Step 4: Pass styleTags as a prop
-    return { ...page, styleTags };
+    // // Step 4: Pass styleTags as a prop
+    // return { ...page, styleTags };
+    return {}
   }
 
   render() {
@@ -23,9 +24,11 @@ export default class MyDocument extends Document {
       <html lang="nl-Nl">
         <Head>
             <link rel="shortcut icon" href="/static/favicon.png" />
-            <meta name="theme-color" content="#ffcf00" />
+            <meta name="theme-color" content="#e9c46a" />
             <link rel="manifest" href="/static/manifest.json" />
-            {this.props.styleTags}
+            {
+              //this.props.styleTags
+            }
         </Head>
         <body>
             <Main />

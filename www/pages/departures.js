@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import Head from 'next/head';
 import Loader from '../components/Loader';
 
+
 import { absoluteUrl } from '../utils/UrlHelper';
 
 const Departures = (props) => {
