@@ -50,7 +50,7 @@ const Loader = (props) => {
                 top: 0;
                 bottom:0;
                 right: 100%;
-                z-index: 2;
+                z-index: 9;
                 background-color: hsla(0, 0%, 0%, 0.1);
                 box-shadow: 0 1px 8px hsla(0, 0%, 0%, 0.1);
                 opacity: 0;
