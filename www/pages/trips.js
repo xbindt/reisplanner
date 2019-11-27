@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import fetch from 'isomorphic-unfetch';
 import {minutesToHoursAndMinutes, transformToReadableDate, transformToReadableDelay} from '../utils/DateHelper';
 import Layout from '../components/Layout';
@@ -11,6 +11,7 @@ import { withRouter } from 'next/router'
 
 import { absoluteUrl } from '../utils/UrlHelper';
 import { Grid, Cell } from 'styled-css-grid';
+import Loader from '../components/Loader';
 
 const Row = styled.div`
     margin-bottom: 1em;
@@ -23,39 +24,39 @@ const Trips = (props) => {
     const [open, setOpen] = useState({boolOpen:false, tripIndex:-1});
 
     return (
-        <Fragment>
-        <Head>
-            <title>Trips</title>
-        </Head>
-        <Layout>
-            {props.trips && (
-                    props.trips.map((trip, index) => {
-                        const departureLeg = trip.legs[0].origin;
-                        const arrivalLeg = trip.legs[trip.legs.length-1].destination;
-                        return (
-                            <Row key={ uuid() }>
-                                <Grid columns={5} onClick={(e) => {setOpen({boolOpen:true, tripIndex:index})}}>
-                                    <Cell>{transformToReadableDate(departureLeg.plannedDateTime)} <Delay>{transformToReadableDelay(departureLeg.actualDateTime, departureLeg.plannedDateTime)}</Delay></Cell>
-                                    <Cell>{transformToReadableDate(arrivalLeg.plannedDateTime)} <Delay>{transformToReadableDelay(arrivalLeg.actualDateTime, arrivalLeg.plannedDateTime)}</Delay></Cell>
-                                    <Cell>{minutesToHoursAndMinutes(trip.actualDurationInMinutes)}</Cell>
-                                    <Cell>{departureLeg.actualTrack ? (
-                                        <span className="spoorwijziging-true">{departureLeg.actualTrack}</span>
-                                    ) : (departureLeg.plannedTrack)}
-                                    </Cell>
-                                    <Cell>{trip.status}</Cell>
-                                </Grid>
-                                {
-                                    (open.boolOpen && open.tripIndex === index) && (
-                                        <Trip {...props.trips[open.tripIndex]} />
-                                    )
-                                }
-                            </Row>
-                        );
-                    }
-                )
-            )}
-        </Layout>
-        </Fragment>
+        <Loader>
+            <Head>
+                <title>Trips</title>
+            </Head>
+            <Layout>
+                {props.trips && (
+                        props.trips.map((trip, index) => {
+                            const departureLeg = trip.legs[0].origin;
+                            const arrivalLeg = trip.legs[trip.legs.length-1].destination;
+                            return (
+                                <Row key={ uuid() }>
+                                    <Grid columns={5} onClick={(e) => {setOpen({boolOpen:true, tripIndex:index})}}>
+                                        <Cell>{transformToReadableDate(departureLeg.plannedDateTime)} <Delay>{transformToReadableDelay(departureLeg.actualDateTime, departureLeg.plannedDateTime)}</Delay></Cell>
+                                        <Cell>{transformToReadableDate(arrivalLeg.plannedDateTime)} <Delay>{transformToReadableDelay(arrivalLeg.actualDateTime, arrivalLeg.plannedDateTime)}</Delay></Cell>
+                                        <Cell>{minutesToHoursAndMinutes(trip.actualDurationInMinutes)}</Cell>
+                                        <Cell>{departureLeg.actualTrack ? (
+                                            <span className="spoorwijziging-true">{departureLeg.actualTrack}</span>
+                                        ) : (departureLeg.plannedTrack)}
+                                        </Cell>
+                                        <Cell>{trip.status}</Cell>
+                                    </Grid>
+                                    {
+                                        (open.boolOpen && open.tripIndex === index) && (
+                                            <Trip {...props.trips[open.tripIndex]} />
+                                        )
+                                    }
+                                </Row>
+                            );
+                        }
+                    )
+                )}
+            </Layout>
+        </Loader>
     )
 };
 
