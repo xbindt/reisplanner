@@ -5,15 +5,8 @@ const app = require("../../lib/server");
 
 const schema = gql`
   type Query {
-    users: [User!]
-    me: User
-    user(id: ID!): User
     stations: [Station!]
     departures(code: String!): [DepartureTime]
-  }
-  type User {
-    id: ID!
-    username: String!
   }
   type Namen {
     lang: String
@@ -42,30 +35,8 @@ const schema = gql`
   }
 `;
 
-let users = {
-  1: {
-    id: '1',
-    username: 'Robin Wieruch',
-  },
-  2: {
-    id: '2',
-    username: 'Dave Davids',
-  },
-};
-
-const me = users[1];
-
 const resolvers = {
   Query: {
-    users: () => {
-      return Object.values(users);
-    },
-    user: (parent, { id }) => {
-      return users[id];
-    },
-    me: () => {
-      return me;
-    },
     stations: (root, args, { dataSources }) => dataSources.nsAPI.getAllStations(),
     departures: (root, args, { dataSources }) => dataSources.nsAPI.getDepartures(args.code),
   },
