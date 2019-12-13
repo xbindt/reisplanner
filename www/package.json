@@ -4,7 +4,18 @@
   "author": "Xander Bindt",
   "license": "MIT",
   "dependencies": {
+    "babel-eslint": "10.0.2",
     "babel-plugin-styled-components": "^1.10.0",
+    "eslint": "6.1.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-config-react-app": "5.0.1",
+    "eslint-loader": "2.2.1",
+    "eslint-plugin-flowtype": "4.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-json": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^8.1.0",
     "next-offline": "^4.0.6",
@@ -16,8 +27,5 @@
   },
   "scripts": {
     "start": "next"
-  },
-  "devDependencies": {
-    "babel-plugin-styled-components": "^1.10.0"
   }
 }

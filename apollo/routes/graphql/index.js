@@ -42,7 +42,6 @@ const resolvers = {
   },
 };
 
-
 const serverA = new ApolloServer({
   typeDefs: schema,
   resolvers,

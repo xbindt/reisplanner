@@ -1,21 +1,21 @@
 import React, { Fragment } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { theme1, GlobalStyles } from '../theme/globalStyle';
-import Header from './header/Header';
+import Header from './Header';
 import Loader from './Loader';
 
 
-const Layout = (props) => (
-<main>
-    <ThemeProvider theme={theme1} >
-    <Fragment>
+const Layout = props => (
+  <main>
+    <ThemeProvider theme={theme1}>
+      <Fragment>
         <Header />
         {props.children}
         <Loader />
-    </Fragment>
+      </Fragment>
     </ThemeProvider>
     <GlobalStyles />
-</main>
-)
+  </main>
+);
 
-export default Layout
+export default Layout;

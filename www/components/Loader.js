@@ -1,49 +1,50 @@
 import Router from 'next/router';
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 
 
 const DONE_DURATION = 250;
 
-const Loader = (props) => {
-  const [loading, setLoading] = React.useState(null)
-  const [timeoutId, setTimeoutId] = React.useState(null)
+const Loader = props => {
+  const [loading, setLoading] = React.useState(null);
+  const [timeoutId, setTimeoutId] = React.useState(null);
 
-  const onLoad = () => setLoading(true)
+  const onLoad = () => setLoading(true);
   const onDone = () => {
-    setLoading(false)
+    setLoading(false);
     setTimeoutId(
       setTimeout(() => {
-        setTimeoutId(null)
-        setLoading(null)
-      }, DONE_DURATION)
-    )
-  }
+        setTimeoutId(null);
+        setLoading(null);
+      }, DONE_DURATION),
+    );
+  };
 
   React.useEffect(() => {
-    Router.events.on('routeChangeStart', onLoad)
-    Router.events.on('routeChangeComplete', onDone)
-    Router.events.on('routeChangeError', onDone)
+    Router.events.on('routeChangeStart', onLoad);
+    Router.events.on('routeChangeComplete', onDone);
+    Router.events.on('routeChangeError', onDone);
 
     return () => {
-      Router.events.off('routeChangeStart', onLoad)
-      Router.events.off('routeChangeComplete', onDone)
-      Router.events.off('routeChangeError', onDone)
-    }
-  })
+      Router.events.off('routeChangeStart', onLoad);
+      Router.events.off('routeChangeComplete', onDone);
+      Router.events.off('routeChangeError', onDone);
+    };
+  });
 
   React.useEffect(
     () => () => {
-      if (timeoutId) clearTimeout(timeoutId)
+      if (timeoutId) clearTimeout(timeoutId);
     },
-    [timeoutId]
+    [timeoutId],
   );
 
 
   return (
     <Fragment>
-        {props.children}
-        <div className={loading === null ? '' : loading ? 'loading' : 'done'} />
-        <style jsx>{`
+      {props.children}
+      <div className={loading === null ? '' : loading ? 'loading' : 'done'} />
+      <style jsx>
+        {`
             div {
                 position: fixed;
                 left: 0;
@@ -69,8 +70,9 @@ const Loader = (props) => {
                 transition-duration: ${DONE_DURATION}ms;
                 transition-delay: 0s, ${DONE_DURATION}ms;
             }
-        `}</style>
+        `}
+      </style>
     </Fragment>
-  )
-}
+  );
+};
 export default Loader;

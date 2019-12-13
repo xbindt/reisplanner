@@ -1,6 +1,6 @@
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
-import TimeTable from '../components/timeTable/TimeTable';
+import TimeTable from '../components/TimeTable';
 import Layout from '../components/Layout';
 import Head from 'next/head';
 import Loader from '../components/Loader';

@@ -1,5 +1,7 @@
+import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+
 const MainNav = styled.nav`
     ul {
       list-style: none;
@@ -23,16 +25,16 @@ const MainNav = styled.nav`
             text-decoration: none;
         }
     }
-`
+`;
 
 const Header = () => (
-    <header>
-        <MainNav>
-            <ul>
-                <li><Link href="/" prefetch><a>Home</a></Link></li>
-            </ul>
-        </MainNav>
-    </header>
-)
+  <header>
+    <MainNav>
+      <ul>
+        <li><Link href="/" prefetch><a>Home</a></Link></li>
+      </ul>
+    </MainNav>
+  </header>
+);
 
-export default Header
+export default Header;

@@ -8,4 +8,6 @@ const port = 8888;
 const api = require('./routes/graphql');
 server.use(api);
 
-server.listen(port, () => console.log(`graphql on port ${port}`))
+server.listen(port, () => console.log(`graphql on port ${port}`));
+
+// console.log(result.payload[0].locations.filter((item)=>{ return item.extra.rentalBikes !== undefined}))
