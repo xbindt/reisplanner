@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "^/service-worker.js$",
+      "destination": "/www/_next/static/service-worker.js"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/app/routes/api"
+    },
+    {
+      "source": "/graphql/(.*)",
+      "destination": "/apollo/routes/graphql"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/www/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "^/service-worker.js$",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "public, max-age=43200, immutable"
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "src": "app/routes/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "apollo/routes/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "www/package.json",
+      "use": "@vercel/next"
+    }
+  ]
+}

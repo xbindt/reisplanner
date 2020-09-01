@@ -5,12 +5,12 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'https://ns-api.nl/reisinfo/api/v2';
+    this.baseURL = 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations';
   }
 
   willSendRequest(request) {
     request.headers.set('Content-Type', 'application/json');
-    request.headers.set('x-api-key', 'gpdUysxVJ2e8ameC2hAWVs6TF3R5HfaOisFz2B70');
+    request.headers.set('Ocp-Apim-Subscription-Key', '035305e8c28f45e28a772d6c5b045ad4');
   }
 
   async getAllStations() {
