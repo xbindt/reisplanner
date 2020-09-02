@@ -5,7 +5,7 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations';
+    this.baseURL = 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/';
   }
 
   willSendRequest(request) {

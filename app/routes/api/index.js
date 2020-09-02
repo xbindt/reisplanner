@@ -5,11 +5,11 @@ try {
     const nsApi = {
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': 'gpdUysxVJ2e8ameC2hAWVs6TF3R5HfaOisFz2B70'
+            'Ocp-Apim-Subscription-Key': '035305e8c28f45e28a772d6c5b045ad4'
         },
-        'baseUrl':'https://ns-api.nl/reisinfo/api/v2',
-        'placesUrl':'https://ns-api.nl/places/api/v2',
-        'tripsUrl':'https://ns-api.nl/reisinfo/api/v3'
+        'baseUrl':'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2',
+        'placesUrl':'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2',
+        'tripsUrl':'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/'
     }
 
     const server = require("../../lib/server");
