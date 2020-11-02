@@ -5,7 +5,7 @@ export class nsAPI extends RESTDataSource {
   constructor() {
     super();
     this.cors = cors();
-    this.baseURL = 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/';
+    this.baseURL = 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/';
   }
 
   willSendRequest(request) {
@@ -14,7 +14,7 @@ export class nsAPI extends RESTDataSource {
   }
 
   async getAllStations() {
-    const response = await this.get('stations');
+    const response = await this.get('v2/stations');
     let arr = Array.isArray(response.payload)
     ? response.payload.filter(station => this.landReducer(station))
     : [];
@@ -24,7 +24,7 @@ export class nsAPI extends RESTDataSource {
   // .map(DepartureTime => this.departureReducer(DepartureTime))
 
   async getDepartures(code) {
-    const response = await this.get(`departures?station=${code}`);
+    const response = await this.get(`v2/departures?station=${code}`);
     let arr = Array.isArray(response.payload.departures)
     ? response.payload.departures : [];
     return arr;
@@ -52,6 +52,14 @@ export class nsAPI extends RESTDataSource {
       synoniemen: station.synoniemen,
     }
   }
+
+  async getTrip(fromStation, toStation) {
+    const response = await this.get(`v3/trips?fromStation=${fromStation}&toStation=${toStation}`);
+    let arr = Array.isArray(response.trips)
+    ? response.trips : [];
+    return arr;
+  }
+
 };
 
 // https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map

@@ -53,12 +53,12 @@ const TimeTable = props => {
               <td>
                 {departureTime.direction}
                 {
-                                departureTime.messages && departureTime.messages.map(message => (
-                                  <p key={uuid()} className={message.style.toLowerCase()}>
-                                    {message.message}
-                                  </p>
-                                ))
-                            }
+                  departureTime.messages && departureTime.messages.map(message => (
+                    <p key={uuid()} className={message.style.toLowerCase()}>
+                      {message.message}
+                    </p>
+                  ))
+                }
               </td>
               <td className="departuretime">
                 {departureTime.actualTrack ? (

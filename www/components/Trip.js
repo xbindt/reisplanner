@@ -23,7 +23,7 @@ const Trip = props => (
           {' '}
           <Delay>{transformToReadableDelay(leg.origin.actualDateTime, leg.origin.plannedDateTime)}</Delay>
         </Cell>
-        <Cell center>-></Cell>
+        <Cell center>-&gt;</Cell>
         <Cell>
           {leg.destination.name}
           <br />
@@ -31,7 +31,6 @@ const Trip = props => (
           {' '}
           <Delay>{transformToReadableDelay(leg.destination.actualDateTime, leg.destination.plannedDateTime)}</Delay>
         </Cell>
-        {leg.messages.length > 0 && (<Cell width={3}>{leg.messages.map(message => (<Message key={uuid()} {...message} />))}</Cell>)}
       </Grid>
     ))}
   </Row>

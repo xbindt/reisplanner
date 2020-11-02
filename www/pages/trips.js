@@ -29,8 +29,8 @@ const Trips = props => {
         <title>Trips</title>
       </Head>
       <Layout>
-        {props.trips && (
-          props.trips.map((trip, index) => {
+        {
+          props.trips && props.trips.map((trip, index) => {
             const departureLeg = trip.legs[0].origin;
             const arrivalLeg = trip.legs[trip.legs.length - 1].destination;
             return (
@@ -46,7 +46,7 @@ const Trips = props => {
                     {' '}
                     <Delay>{transformToReadableDelay(arrivalLeg.actualDateTime, arrivalLeg.plannedDateTime)}</Delay>
                   </Cell>
-                  <Cell>{minutesToHoursAndMinutes(trip.actualDurationInMinutes)}</Cell>
+                  <Cell>{minutesToHoursAndMinutes(trip.plannedDurationInMinutes)}</Cell>
                   <Cell>
                     {departureLeg.actualTrack ? (
                       <span className="spoorwijziging-true">{departureLeg.actualTrack}</span>
@@ -62,7 +62,7 @@ const Trips = props => {
               </Row>
             );
           })
-        )}
+        }
       </Layout>
     </Loader>
   );
@@ -70,14 +70,15 @@ const Trips = props => {
 
 Trips.getInitialProps = async ({ query, req }) => {
   const { fromStation, toStation } = query;
-  /* NOTE - relative url in this function runs will not work and
-    will get ECONNRESET error since it runs on server context */
-  const baseUrl = absoluteUrl(req, 'localhost:9999');
-  const apiUrl = `${baseUrl}api/trips/?fromStation=${fromStation}&toStation=${toStation}`;
-
-  const res = await fetch(apiUrl);
-  const data = await res.json();
-  return data;
+  const baseUrl = absoluteUrl(req, 'localhost:3000');
+  const apiUrl = process.env.NODE_ENV === 'production' ? `${baseUrl}graphql/` : 'http://localhost:8888/graphql';
+  const res = await fetch(apiUrl,{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `{ trip(fromStation: "${fromStation}" toStation:"${toStation}") { uid status plannedDurationInMinutes legs{origin{name plannedDateTime actualDateTime actualTrack plannedTrack} destination{name plannedDateTime actualDateTime actualTrack plannedTrack}} }}` }),
+  });
+  const response = await res.json();
+  return { trips: response.data.trip };
 };
 
 
