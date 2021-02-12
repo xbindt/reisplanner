@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'isomorphic-unfetch';
 import Head from 'next/head';
 import { Grid, Cell } from 'styled-css-grid';
+
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import SearchBox from '../components/SearchBox';
@@ -14,9 +15,15 @@ const InputSearchBtn = styled.button`
   font-size: 1em;
   width: 100%;
   padding: 15px;
-  background: transparent;
+  background: rgba(0,0,0,0.2);
   color: ${props => props.theme.basecolor};
   border: solid 1px ${props => props.theme.basecolor};
+`;
+
+const CellStyle = styled(Cell)`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 `;
 
 const Home = props => {
@@ -62,14 +69,14 @@ const Home = props => {
           <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
             <Cell><SearchBox {...props} label="Van" name="fromStation" funcOnBlur={onBlurHandler} /></Cell>
             <Cell><SearchBox {...props} label="Naar" name="toStation" funcOnBlur={onBlurHandler} /></Cell>
-            <Cell><InputSearchBtn>Plannen</InputSearchBtn></Cell>
+            <CellStyle><InputSearchBtn>Plannen</InputSearchBtn></CellStyle>
           </Grid>
         </form>
         <form onSubmit={handleSubmitDepartures} action="/departures">
           <h2>Vertrektijden</h2>
           <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
             <Cell><SearchBox {...props} label="Van" name="station" funcOnBlur={onBlurHandlerDepartures} /></Cell>
-            <Cell><InputSearchBtn>Vertrektijden</InputSearchBtn></Cell>
+            <CellStyle><InputSearchBtn>Vertrektijden</InputSearchBtn></CellStyle>
           </Grid>
         </form>
       </Layout>

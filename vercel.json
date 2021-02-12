@@ -2,7 +2,7 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "^/service-worker.js$",
+      "source": "/service-worker.js",
       "destination": "/www/_next/static/service-worker.js"
     },
     {
@@ -20,11 +20,15 @@
   ],
   "headers": [
     {
-      "source": "^/service-worker.js$",
+      "source": "/service-worker.js",
       "headers": [
         {
           "key": "cache-control",
           "value": "public, max-age=43200, immutable"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
         }
       ]
     }
