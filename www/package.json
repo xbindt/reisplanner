@@ -26,6 +26,7 @@
     "uuid": "^3.3.3"
   },
   "scripts": {
+    "vercel-build": "next build",
     "start": "next"
   }
 }

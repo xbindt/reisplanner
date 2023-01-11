@@ -1,39 +1,28 @@
-const withOffline = moduleExists('next-offline')
-  ? require('next-offline')
-  : {};
+// @ts-nocheck
+module.exports = function(...args) {
+  let original = require('./next.config.__vercel_builder_backup__.js');
 
-const nextConfig = {
-  target: 'serverless',
-  workboxOpts: {
-    swDest: 'static/service-worker.js',
-    runtimeCaching: [
-      {
-        urlPattern: /^https?.*/,
-        handler: 'networkFirst',
-        options: {
-          cacheName: 'https-calls',
-          networkTimeoutSeconds: 15,
-          expiration: {
-            maxEntries: 150,
-            maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
-          },
-          cacheableResponse: {
-            statuses: [0, 200],
-          },
-        },
-      },
-    ],
-  },
-}
+  const finalConfig = {};
+  const target = { target: 'serverless' };
 
-module.exports = moduleExists('next-offline')
-  ? withOffline(nextConfig)
-  : nextConfig
-
-function moduleExists(name) {
-  try {
-    return require.resolve(name);
-  } catch (error) {
-    return false;
+  if (typeof original === 'function' && original.constructor.name === 'AsyncFunction') {
+    // AsyncFunctions will become promises
+    original = original(...args);
   }
+
+  if (original instanceof Promise) {
+    // Special case for promises, as it's currently not supported
+    // and will just error later on
+    return original
+      .then((orignalConfig) => Object.assign(finalConfig, orignalConfig))
+      .then((config) => Object.assign(config, target));
+  } else if (typeof original === 'function') {
+    Object.assign(finalConfig, original(...args));
+  } else if (typeof original === 'object') {
+    Object.assign(finalConfig, original);
+  }
+
+  Object.assign(finalConfig, target);
+
+  return finalConfig;
 }
