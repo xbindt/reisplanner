@@ -28,5 +28,15 @@
         }
       ]
     }
+  ],
+  "buildCommand": [
+    {
+      "src": "apollo/routes/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "www/package.json",
+      "use": "@vercel/next"
+    }
   ]
 }
