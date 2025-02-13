@@ -1,10 +1,12 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-nested-ternary */
 import Router from 'next/router';
 import React, { Fragment } from 'react';
-
+import PropTypes from 'prop-types';
 
 const DONE_DURATION = 250;
 
-const Loader = props => {
+const Loader = ({ children }) => {
   const [loading, setLoading] = React.useState(null);
   const [timeoutId, setTimeoutId] = React.useState(null);
 
@@ -38,10 +40,9 @@ const Loader = props => {
     [timeoutId],
   );
 
-
   return (
     <Fragment>
-      {props.children}
+      {children}
       <div className={loading === null ? '' : loading ? 'loading' : 'done'} />
       <style jsx>
         {`
@@ -75,4 +76,11 @@ const Loader = props => {
     </Fragment>
   );
 };
+
+Loader.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+Loader.defaultProps = {};
+
 export default Loader;

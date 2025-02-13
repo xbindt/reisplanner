@@ -6,10 +6,6 @@
       "destination": "/www/_next/static/service-worker.js"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/app/routes/api"
-    },
-    {
       "source": "/graphql/(.*)",
       "destination": "/apollo/routes/graphql"
     },
@@ -34,10 +30,6 @@
     }
   ],
   "builds": [
-    {
-      "src": "app/routes/**/*.js",
-      "use": "@vercel/node"
-    },
     {
       "src": "apollo/routes/**/*.js",
       "use": "@vercel/node"

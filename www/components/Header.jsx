@@ -31,10 +31,14 @@ const Header = () => (
   <header>
     <MainNav>
       <ul>
-        <li><Link href="/" prefetch><a>Home</a></Link></li>
+        <li><Link href="/">Home</Link></li>
       </ul>
     </MainNav>
   </header>
 );
+Header.propTypes = {
+};
+
+Header.defaultProps = {};
 
 export default Header;

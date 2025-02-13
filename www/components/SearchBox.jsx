@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const AutoCompleteList = styled.ul`
@@ -37,15 +38,16 @@ const InputSearch = styled.input`
   border: solid 1px ${props => props.theme.basecolor};
 `;
 
-const SearchBox = props => {
+const SearchBox = ({
+  stations, funcOnBlur, name, label,
+}) => {
   const [stationsFiltered, setStationsFiltered] = useState([]);
   const [inputValue, setInputValue] = useState('');
-
 
   const autoComplete = event => {
     const autoCompleteInput = event;
     if (autoCompleteInput.length > 2) {
-      const filterdStations = props.stations.filter(station => station.namen.lang.toLowerCase().includes(autoCompleteInput.toLowerCase())
+      const filterdStations = stations.filter(station => station.namen.lang.toLowerCase().includes(autoCompleteInput.toLowerCase())
           || station.synoniemen.join().toLowerCase().includes(autoCompleteInput.toLowerCase()));
       setStationsFiltered(filterdStations);
     }
@@ -61,19 +63,19 @@ const SearchBox = props => {
   };
 
   const handleBlur = (inputName, station) => {
-    props.funcOnBlur(inputName, station);
+    funcOnBlur(inputName, station);
   };
 
   return (
     <Fragment>
-      <label htmlFor={props.name}>{props.label}</label>
+      <label htmlFor={name}>{label}</label>
       <div>
-        <InputSearch value={inputValue} id={props.name} name={props.name} type="text" autoComplete="off" placeholder="Typ uw station hier..." onChange={handleChange} />
+        <InputSearch value={inputValue} id={name} name={name} type="text" autoComplete="off" placeholder="Typ uw station hier..." onChange={handleChange} />
         <AutoCompleteList>
           {
           stationsFiltered.map(station => (
             <li key={station.code}>
-              <span onClick={e => { handleBlur(props.name, station); setInputValue(station.namen.lang); setStationsFiltered([]); }}>{station.namen.lang}</span>
+              <button type="button" onClick={() => { handleBlur(name, station); setInputValue(station.namen.lang); setStationsFiltered([]); }}>{station.namen.lang}</button>
             </li>
           ))
         }
@@ -81,6 +83,16 @@ const SearchBox = props => {
       </div>
     </Fragment>
   );
+};
+
+SearchBox.propTypes = {
+  stations: PropTypes.arrayOf().isRequired,
+  funcOnBlur: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+};
+
+SearchBox.defaultProps = {
 };
 
 export default SearchBox;

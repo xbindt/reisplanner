@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import uuid from 'uuid/v4';
-import { Grid, Cell } from 'styled-css-grid';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
+import Grid, { Cell } from './CssGrid';
 import { transformToReadableDate, transformToReadableDelay } from '../utils/DateHelper';
-import Message from './Message';
 import Delay from './Delay';
 
 const Row = styled.div`
@@ -12,10 +12,10 @@ const Row = styled.div`
     border: solid 1px ${props => props.theme.basecolor};
     `;
 
-const Trip = props => (
+const Trip = ({ legs }) => (
   <Row>
-    {props.legs.map(leg => (
-      <Grid columns={3} key={uuid()}>
+    {legs.map(leg => (
+      <Grid columns={3} key={uuidv4()}>
         <Cell>
           {leg.origin.name }
           <br />
@@ -35,6 +35,10 @@ const Trip = props => (
     ))}
   </Row>
 );
+Trip.propTypes = {
+  legs: PropTypes.arrayOf().isRequired,
+};
 
+Trip.defaultProps = {};
 
 export default Trip;

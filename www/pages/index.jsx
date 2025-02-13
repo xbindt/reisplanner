@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import 'isomorphic-unfetch';
 import Head from 'next/head';
-import { Grid, Cell } from 'styled-css-grid';
 
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -20,13 +18,13 @@ const InputSearchBtn = styled.button`
   border: solid 1px ${props => props.theme.basecolor};
 `;
 
-const CellStyle = styled(Cell)`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-`;
+// const divStyle = styled(div)`
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: flex-end;
+// `;
 
-const Home = props => {
+function Home(props) {
   const router = useRouter();
   const [formState, setFormState] = useState({});
   const [formDepartureState, setFormDepartureState] = useState({});
@@ -66,23 +64,23 @@ const Home = props => {
       <Layout>
         <form onSubmit={handleSubmit} action="/trips">
           <h2>Trip</h2>
-          <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
-            <Cell><SearchBox {...props} label="Van" name="fromStation" funcOnBlur={onBlurHandler} /></Cell>
-            <Cell><SearchBox {...props} label="Naar" name="toStation" funcOnBlur={onBlurHandler} /></Cell>
-            <CellStyle><InputSearchBtn>Plannen</InputSearchBtn></CellStyle>
-          </Grid>
+          <div>
+            <div><SearchBox {...props} label="Van" name="fromStation" funcOnBlur={onBlurHandler} /></div>
+            <div><SearchBox {...props} label="Naar" name="toStation" funcOnBlur={onBlurHandler} /></div>
+            <div><InputSearchBtn>Plannen</InputSearchBtn></div>
+          </div>
         </form>
         <form onSubmit={handleSubmitDepartures} action="/departures">
           <h2>Vertrektijden</h2>
-          <Grid columns="repeat(auto-fit,minmax(320px,1fr))">
-            <Cell><SearchBox {...props} label="Van" name="station" funcOnBlur={onBlurHandlerDepartures} /></Cell>
-            <CellStyle><InputSearchBtn>Vertrektijden</InputSearchBtn></CellStyle>
-          </Grid>
+          <div>
+            <div><SearchBox {...props} label="Van" name="station" funcOnBlur={onBlurHandlerDepartures} /></div>
+            <div><InputSearchBtn>Vertrektijden</InputSearchBtn></div>
+          </div>
         </form>
       </Layout>
     </Loader>
   );
-};
+}
 
 Home.getInitialProps = async ({ req }) => {
   const baseUrl = absoluteUrl(req, 'localhost:3000');

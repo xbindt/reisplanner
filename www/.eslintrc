@@ -1,7 +1,8 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "extends": [
-    "airbnb"
+    "airbnb",
+    "plugin:@next/next/recommended"
   ],
   "plugins": [
     "react-hooks",
@@ -12,6 +13,7 @@
   },
   "rules": {
     "arrow-parens": [ "error", "as-needed" ],
+    "import/extensions": "off",
     "import/no-extraneous-dependencies": [ "error", { "devDependencies": [ "**/*.{test,stories}.{js,jsx}" ] } ],
     "import/no-unresolved": "off",
     "import/order": "error",
@@ -27,7 +29,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react/jsx-curly-newline": "off",
     "react/jsx-fragments": [ "error", "element" ],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": "off"
   },
   "overrides": [
     {

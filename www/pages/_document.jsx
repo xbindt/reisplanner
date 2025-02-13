@@ -1,5 +1,7 @@
 import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, {
+  Html, Head, Main, NextScript,
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
@@ -15,6 +17,7 @@ export default class MyDocument extends Document {
       const initialProps = await Document.getInitialProps(ctx);
 
       return {
+        ...initialProps,
         styles: (
           <React.Fragment>
             {initialProps.styles}
@@ -29,7 +32,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html lang="nl-Nl">
+      <Html lang="nl-Nl">
         <Head>
           <link rel="shortcut icon" href="/static/favicon.png" />
           <meta name="theme-color" content="#e9c46a" />
@@ -39,7 +42,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

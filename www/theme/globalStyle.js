@@ -1,23 +1,23 @@
-import styled, { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const colors = {
-    color1: '#264653',
-    color2: '#2a9d8f',
-    color3: '#e9c46a',
-    color4: '#f4a261',
-    color5: '#e76f51',
-}
+  color1: '#264653',
+  color2: '#2a9d8f',
+  color3: '#e9c46a',
+  color4: '#f4a261',
+  color5: '#e76f51',
+};
 
 const myTheme = {
-    fontbase: 'Georgia,Times New Roman,serif',
-    fontsecondary: 'krona_oneregular, sans-serif',
-    basetextcolor: colors.color1,
-    basecolor: colors.color1,
-    secondarycolor: '#222222',
-    basebackgroundcolor: colors.color3,
-    warningcolor: '#ff0000',
-    basehoverbackgroundcolor: '#333333',
-    basehovercolor: '#ffffff',
+  fontbase: 'Georgia,Times New Roman,serif',
+  fontsecondary: 'krona_oneregular, sans-serif',
+  basetextcolor: colors.color1,
+  basecolor: colors.color1,
+  secondarycolor: '#222222',
+  basebackgroundcolor: colors.color3,
+  warningcolor: '#ff0000',
+  basehoverbackgroundcolor: '#333333',
+  basehovercolor: '#ffffff',
 };
 export const theme1 = myTheme;
 
